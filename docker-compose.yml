@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  solana-rpc:
+    image: solanalabs/solana:v1.17.18
+    ports:
+      - "8899:8899"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx-marisolvrs.fun.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - solana-rpc
+    restart: unless-stopped
