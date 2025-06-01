@@ -1,9 +1,21 @@
 version: "3.8"
 services:
-  solana-rpc:
+  solana-rpc-1:
     image: solanalabs/solana:v1.17.18
     ports:
-      - "8899:8899"
+      - "8902:8899"  # Cambié el puerto externo a 8902
+    restart: unless-stopped
+
+  solana-rpc-2:
+    image: solanalabs/solana:v1.17.18
+    ports:
+      - "8903:8899"  # Cambié el puerto externo a 8903
+    restart: unless-stopped
+
+  solana-rpc-3:
+    image: solanalabs/solana:v1.17.18
+    ports:
+      - "8904:8899"  # Cambié el puerto externo a 8904
     restart: unless-stopped
 
   nginx:
@@ -14,5 +26,8 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - solana-rpc
+      - solana-rpc-1
+      - solana-rpc-2
+      - solana-rpc-3
     restart: unless-stopped
+

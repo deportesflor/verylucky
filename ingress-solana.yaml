@@ -3,7 +3,9 @@ kind: Ingress
 metadata:
   name: solana-ingress
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 spec:
   rules:
   - host: marisolvrs.fun
@@ -16,3 +18,7 @@ spec:
             name: solana-rpc
             port:
               number: 80
+  tls:
+  - hosts:
+    - marisolvrs.fun
+

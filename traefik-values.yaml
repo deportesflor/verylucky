@@ -1,0 +1,24 @@
+ports:
+  web:
+    redirectTo:
+      entryPoint: websecure
+      port: "443"  # <- Cambiado a string
+  websecure:
+    tls:
+      enabled: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: marisolylucky@mail.com
+      storage: acme.json
+      httpChallenge:
+        entryPoint: web
+
+additionalArguments:
+  - "--entrypoints.web.address=:80"
+  - "--entrypoints.websecure.address=:443"
+  - "--certificatesresolvers.letsencrypt.acme.email=marisolylucky@mail.com"
+  - "--certificatesresolvers.letsencrypt.acme.storage=acme.json"
+  - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+
