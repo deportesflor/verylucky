@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: solana-rpc
+spec:
+  selector:
+    app: solana-rpc
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8899
+  type: ClusterIP

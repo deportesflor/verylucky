@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solana-rpc
+  labels:
+    app: solana-rpc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: solana-rpc
+  template:
+    metadata:
+      labels:
+        app: solana-rpc
+    spec:
+      containers:
+      - name: solana
+        image: solanalabs/solana:v1.17.18
+        ports:
+        - containerPort: 8899
