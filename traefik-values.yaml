@@ -1,11 +1,12 @@
 ports:
   web:
-    redirectTo:
-      entryPoint: websecure
-      port: "443"  # <- Cambiado a string
+    expose: 
+      enabled: true  # Cambié a un objeto con la propiedad "enabled"
+      entryPoint: web
   websecure:
     tls:
       enabled: true
+    entryPoint: websecure
 
 certificatesResolvers:
   letsencrypt:
@@ -14,6 +15,12 @@ certificatesResolvers:
       storage: acme.json
       httpChallenge:
         entryPoint: web
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
 
 additionalArguments:
   - "--entrypoints.web.address=:80"

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: traefik
+          image: traefik:v3.4.0
+          volumeMounts:
+            - name: acme-storage
+              mountPath: /mnt/data/traefik-acme  # Cambiar el mountPath a la ruta que busca Traefik
+              subPath: acme.json
+      volumes:
+        - name: acme-storage
+          persistentVolumeClaim:
+            claimName: traefik-acme-pvc
+
